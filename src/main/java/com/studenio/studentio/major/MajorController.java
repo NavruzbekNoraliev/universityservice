@@ -14,7 +14,7 @@ public class MajorController {
 
     @GetMapping("/")
     public List<Major> getAllMajors() {
-        return majorRepository.findAll();
+        return (List<Major>) majorRepository.findAll();
     }
 
     @PostMapping("/")
@@ -34,8 +34,6 @@ public class MajorController {
                 .orElseThrow(() -> new IllegalArgumentException("Major not found with id: " + id));
 
         major.setName(updatedMajor.getName());
-        major.setDepartment(updatedMajor.getDepartment());
-
         return majorRepository.save(major);
     }
 

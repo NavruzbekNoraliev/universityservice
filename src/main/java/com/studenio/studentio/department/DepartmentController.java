@@ -7,38 +7,39 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
 
+    private final DepartmentService departmentService;
+
     @Autowired
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
     private DepartmentRepository departmentRepository;
 
     @GetMapping("/")
     public List<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+        return departmentService.getAllDepartments();
     }
 
     @PostMapping("/")
     public Department createDepartment(@RequestBody Department department) {
-        return departmentRepository.save(department);
+        return departmentService.createDepartment(department);
     }
 
     @GetMapping("/{id}")
     public Department getDepartmentById(@PathVariable Long id) {
-        return departmentRepository.findById(id)
+        return departmentService.getDepartmentById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
     }
 
+
     @PutMapping("/{id}")
-    public Department updateDepartment(@PathVariable Long id, @RequestBody Department updatedDepartment) {
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Department not found with id: " + id));
-
-        department.setName(updatedDepartment.getName());
-        department.setUniversity(updatedDepartment.getUniversity());
-
-        return departmentRepository.save(department);
+    public Department updateDepartment(@PathVariable String id, @RequestBody Department updatedDepartment) {
+      return departmentService.updateDepartment(updatedDepartment);
     }
 
     @DeleteMapping("/{id}")
     public void deleteDepartment(@PathVariable Long id) {
-        departmentRepository.deleteById(id);
+        departmentService.deleteDepartment(id);
     }
 }
