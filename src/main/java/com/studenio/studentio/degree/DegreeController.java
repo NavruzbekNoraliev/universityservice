@@ -1,6 +1,10 @@
 package com.studenio.studentio.degree;
+import com.studenio.studentio.degree.Degree;
+import com.studenio.studentio.degree.DegreeService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +24,10 @@ public class DegreeController {
     }
 
     @GetMapping
-    public List<Degree> getAllDegrees() {
+    public Page<Degree> getAllDegrees(Pageable pageable) {
         log.info("Getting all Degrees");
-        return degreeService.getAllDegrees();
+        log.debug("Learning ELK service");
+        return degreeService.getAllDegrees(pageable);
     }
 
     @GetMapping("/{id}")
@@ -38,7 +43,7 @@ public class DegreeController {
     @PutMapping("/{id}")
     public Degree updateDegree(@PathVariable("id") UUID id, @RequestBody Degree degree) {
         degree.setId(id);
-        return degreeService.updateDegree(degree);
+        return degreeService.updateDegree(id, degree);
     }
 
     @DeleteMapping("/{id}")

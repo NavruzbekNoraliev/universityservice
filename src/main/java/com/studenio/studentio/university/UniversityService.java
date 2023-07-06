@@ -12,7 +12,6 @@ import java.util.UUID;
 @Service
 public class UniversityService {
     private final UniversityRepository universityRepository;
-
     @Autowired
     public UniversityService(UniversityRepository universityRepository) {
         this.universityRepository = universityRepository;

@@ -1,7 +1,12 @@
 package com.studenio.studentio.degree;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.studenio.studentio.university.University;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +22,9 @@ public class DegreeService {
         this.degreeRepository = degreeRepository;
     }
 
-    public List<Degree> getAllDegrees() {
-        return (List<Degree>) degreeRepository.findAll();
+    public Page<Degree> getAllDegrees(Pageable pageable) {
+        Page<Degree> degreePage = degreeRepository.findAll(pageable);
+        return degreePage;
     }
 
     public Optional<Degree> getDegreeById(UUID id) {
@@ -29,8 +35,11 @@ public class DegreeService {
         return degreeRepository.save(degree);
     }
 
-    public Degree updateDegree(Degree degree) {
-        return degreeRepository.save(degree);
+    public Degree updateDegree(UUID id, Degree degreeDto) {
+        Degree degreeOriginal = findById(id).get();
+        ObjectMapper objectMapper = new ObjectMapper();
+        degreeDto -> degreeOriginal
+        return degreeRepository.save(degreeOriginal);
     }
 
     public void deleteDegree(UUID id) {

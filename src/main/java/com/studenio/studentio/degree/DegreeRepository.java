@@ -1,11 +1,9 @@
 package com.studenio.studentio.degree;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.UUID;
 
 @Repository
-public interface DegreeRepository extends CrudRepository<Degree, UUID> {
+public interface DegreeRepository extends JpaRepository<Degree, UUID> {
 
 }

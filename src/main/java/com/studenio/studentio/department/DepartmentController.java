@@ -1,6 +1,7 @@
 package com.studenio.studentio.department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -13,8 +14,6 @@ public class DepartmentController {
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
-
-    private DepartmentRepository departmentRepository;
 
     @GetMapping("/")
     public List<Department> getAllDepartments() {
